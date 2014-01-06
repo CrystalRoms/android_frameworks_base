@@ -222,11 +222,6 @@ final class ActivityStack {
     long mFullyDrawnStartTime = 0;
 
     /**
-     * Is the privacy guard currently enabled?
-     */
-    String mPrivacyGuardPackageName = null;
-
-    /**
      * Save the most recent screenshot for reuse. This keeps Recents from taking two identical
      * screenshots, one for the Recents thumbnail and one for the pauseActivity thumbnail.
      */
@@ -1716,7 +1711,8 @@ final class ActivityStack {
 
     private final void updatePrivacyGuardNotificationLocked(ActivityRecord next) {
 
-        if (mPrivacyGuardPackageName != null && mPrivacyGuardPackageName.equals(next.packageName)) {
+        String privacyGuardPackageName = mStackSupervisor.mPrivacyGuardPackageName;
+        if (privacyGuardPackageName != null && privacyGuardPackageName.equals(next.packageName)) {
             return;
         }
 
@@ -1725,16 +1721,16 @@ final class ActivityStack {
         boolean privacyNotification = (Settings.Secure.getInt(mContext.getContentResolver(),
                 Settings.Secure.PRIVACY_GUARD_NOTIFICATION, 1) == 1);
 
-        if (mPrivacyGuardPackageName != null && !privacy) {
+        if (privacyGuardPackageName != null && !privacy) {
             Message msg = mService.mHandler.obtainMessage(
                     ActivityManagerService.CANCEL_PRIVACY_NOTIFICATION_MSG, next.userId);
             msg.sendToTarget();
-            mPrivacyGuardPackageName = null;
-        } else if (privacy && privacyNotification) {
+            mStackSupervisor.mPrivacyGuardPackageName = null;
+        } else if (privacy) {
             Message msg = mService.mHandler.obtainMessage(
                     ActivityManagerService.POST_PRIVACY_NOTIFICATION_MSG, next);
             msg.sendToTarget();
-            mPrivacyGuardPackageName = next.packageName;
+            mStackSupervisor.mPrivacyGuardPackageName = next.packageName;
         }
     }
 
