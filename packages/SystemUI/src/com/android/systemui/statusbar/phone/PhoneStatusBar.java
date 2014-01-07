@@ -259,7 +259,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode {
     private DockBatteryMeterView mDockBatteryView;
 
     // clock
-    private boolean mShowClock;
+    private boolean mShowClock = true;
     private boolean mClockEnabled;
 
     // position
