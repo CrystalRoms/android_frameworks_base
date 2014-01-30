@@ -33,8 +33,8 @@ public class DessertCaseDream extends DreamService {
         super.onAttachedToWindow();
         setInteractive(false);
 
-        SharedPreferences prefs =
-                PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
         final boolean isCM = prefs.getBoolean("dessert_case_cm", false);
 
         if (isCM) {

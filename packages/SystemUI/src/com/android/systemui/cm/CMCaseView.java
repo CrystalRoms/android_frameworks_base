@@ -29,6 +29,8 @@ public class CMCaseView extends DessertCaseView {
             R.drawable.cm_cid_confused,
             R.drawable.cm_cid_standing_angry,
             R.drawable.cm_cid_standing_normal
+            R.drawable.dessert_kitkat,      // Used with permission
+            R.drawable.dessert_android,     // Thx Irina
     };
 
     private static final int[] RARE_PASTRIES = {
