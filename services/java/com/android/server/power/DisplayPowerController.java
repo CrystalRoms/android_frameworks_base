@@ -248,9 +248,6 @@ final class DisplayPowerController {
                 Settings.System.SCREEN_OFF_ANIMATION, 1) == 1;
     }
 
-	// Settings - override config for ElectronBeam
-    private int mElectronBeamMode;
-	
     // The pending power request.
     // Initially null until the first call to requestPowerState.
     // Guarded by mLock.
@@ -630,8 +627,7 @@ final class DisplayPowerController {
 
     private void initialize() {
         mPowerState = new DisplayPowerState(
-                new ElectronBeam(mDisplayManager, mElectronBeamMode), 
-				mDisplayBlanker,
+                new ElectronBeam(mDisplayManager), mDisplayBlanker,
                 mLights.getLight(LightsService.LIGHT_ID_BACKLIGHT));
 
         mElectronBeamOnAnimator = ObjectAnimator.ofFloat(
@@ -700,13 +696,6 @@ final class DisplayPowerController {
             }
 
             mustNotify = !mDisplayReadyLocked;
-        }
-
-		// update crt mode settings and force initialize if value changed
-
-        if (mElectronBeamMode != mPowerRequest.electronBeamMode) {
-            mElectronBeamMode = mPowerRequest.electronBeamMode;
-            mustInitialize = true;
         }
 
         // Initialize things the first time the power state is changed.
@@ -1532,3 +1521,4 @@ final class DisplayPowerController {
         }
     };
 }
+
