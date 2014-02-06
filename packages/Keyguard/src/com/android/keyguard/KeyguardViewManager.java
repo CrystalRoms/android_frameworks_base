@@ -118,8 +118,8 @@ public class KeyguardViewManager {
 
         void observe() {
             ContentResolver resolver = mContext.getContentResolver();
-            resolver.registerContentObserver(Settings.AOKP.getUriFor(
-                    Settings.AOKP.LOCKSCREEN_SEE_THROUGH), false, this);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.LOCKSCREEN_SEE_THROUGH), false, this);
         }
 
         @Override
@@ -656,8 +656,8 @@ public class KeyguardViewManager {
     }
 
     private boolean isSeeThroughEnabled() {
-        return Settings.AOKP.getInt(mContext.getContentResolver(),
-                Settings.AOKP.LOCKSCREEN_SEE_THROUGH, 0) == 1;
+        return Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.LOCKSCREEN_SEE_THROUGH, 0) == 1;
     }
 
     void updateShowWallpaper(boolean show) {
